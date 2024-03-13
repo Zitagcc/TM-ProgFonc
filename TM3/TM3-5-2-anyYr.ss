@@ -1,0 +1,30 @@
+(define (JourSemaine n)
+  (define Jr (+ 7 (remainder n 7)))
+  (cond
+      ((= Jr 6) "Dimanche")
+      ((= Jr 0) "Lundi")
+      ((= Jr 1) "Mardi")
+      ((= Jr 2) "Mercredi")
+      ((= Jr 3) "Jeudi")
+      ((= Jr 4) "Vendredi")
+      ((= Jr 5) "Samedi")))
+
+
+(define (JourAnnee annee)
+  (display "tapez un nombre entier entre 1 et 365 ")
+  (define nbrJr (read))
+  (define dif (- annee 2020))
+  (define difBis (quotient dif 4))
+  
+  (newline)
+    (display "Le ")
+    (display nbrJr)
+    (display "ème jour de l’année ")
+    (display annee)
+    (display " est un ")
+    (display (JourSemaine (+ nbrJr dif difBis)))
+    (newline))
+
+(display "tapez l'année ")
+(define annee (read))
+(JourAnnee annee)
