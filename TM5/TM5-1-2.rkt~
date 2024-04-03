@@ -1,0 +1,22 @@
+(define (flocon nGen lenAr)
+  (begin
+    (traceCote nGen lenAr)
+    (turn 120)
+    (traceCote nGen lenAr)
+    (turn 120)
+    (traceCote nGen lenAr)
+    (turn 120)))
+         
+         
+        
+(define nGen 4) ; fraction deepness
+;(define nbAr 3) ; number of edges
+(define lenAr 100) ;lenght of edge
+
+;(traceFrac nbAr lenAr nGen)
+
+
+
+; start to draw the fraction 
+(turtles #t)
+(flocon nGen lenAr)

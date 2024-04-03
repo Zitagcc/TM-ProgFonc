@@ -1,0 +1,58 @@
+;TM5 Bis - Exercice 2
+
+(require (lib "turtles.ss" "graphics"))
+
+(define (brancheFlocon g lg a)
+  ; trace une branche de flocon de neige de génération g et de branche principale de longueur lg et d'angle a (en degrés)
+  ; entier >= 0, réel >= 0 ->
+  ; EI : tortue au début de la branche principale, dans l'orientation de celle-ci
+  ; EF : fractale tracée, tortue revenue à son EI
+  (begin
+    (draw lg)
+    (if (> g 0)
+        (begin
+          (turn a)
+          (draw lg)
+          (move (- lg))
+          (turn (- a))
+          (brancheFlocon (- g 1) (* 0.8 lg) a)
+          (turn (- a))
+          (draw lg)
+          (move (- lg))
+          (turn a)))
+    (move (- lg))))
+
+(define (traceBranches g lg nb a)
+  ; trace nb branches d'un flocon de neige de génération g jointes à leur base.
+  ; lg est la longueur du premier segment de branche et a l'angle (en degrés) de séparation des branches
+  ; EI : tortue au début de la première branche à tracer, dans l'orientation de celle-ci
+  ; EF : nb branches tracées, tortue prête pour tracer une (nb + 1)ième branche
+  (if (> nb 0)
+      (begin
+      (brancheFlocon g lg a)
+      (turn a)
+      (traceBranches g lg (- nb 1) a))))
+
+(define (flocon g lg nb)
+  ; trace un flocon de neige à l'aide de nb branches de génération g joints par leur base de longueur lg
+  ; entier >= 0, réel >= 0
+  ; EI : tortue au centre du flocon à tracer, dans l'orientation d'une de ses branches principales
+  ; EF : flocon tracé, tortue revenue à son EI
+  (traceBranches g lg nb (/ 360 nb)))
+  
+; programme 
+; generation : entier >= 0, donnée, génération du flocon à tracer
+; longueur : réel >= 0, donnée, longueur du premier segment de branche
+; nbBranches : entier >= 2, donnée, nombre de branches à tracer
+(display "Tracé d'un \"flocon de neige\"")
+(newline)
+(display "Génération ? ")
+(define generation (read))
+(display "Longueur de la branche principale ? ")
+(define longueur (read))
+(display "Nombre de branches ? ")
+(define nbBranches (read))
+
+(turtles #t)
+(flocon generation longueur nbBranches)
+

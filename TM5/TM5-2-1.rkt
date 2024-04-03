@@ -1,0 +1,40 @@
+(require (lib "turtles.ss" "graphics"))
+
+(define (sierpinski nGen lenAr)
+  (if (= nGen 0) (begin
+                (draw lenAr)
+                (turn 120)
+                (draw lenAr)
+                (turn 120)
+                (draw lenAr)
+                (turn 120))
+      (begin
+        (sierpinski (- nGen 1) (/ lenAr 2))
+        (move (/ lenAr 2))
+        (sierpinski (- nGen 1) (/ lenAr 2))
+        (turn 120)
+        (move (/ lenAr 2))
+        (turn -120)
+        (sierpinski (- nGen 1) (/ lenAr 2))
+        (turn 60)
+        (move (/ lenAr -2))
+        (turn -60))))
+
+
+
+
+(display "Tracé d'un triangle de Sierpinski")
+(newline)
+(display "Génération ? ")
+(define generation (read))
+(display "Longueur de côté ? ")
+(define longueur (read))
+(turtles #t)
+(let ((r (/ longueur (sqrt 3))))
+  (turn 30)
+  (move (- r))
+  (turn -30)
+      (sierpinski generation longueur)
+  (turn 30)
+  (move (+ r))
+  (turn -30))
